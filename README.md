@@ -11,41 +11,30 @@ Sockets Links.
 ## PROGRAM
 ## Client.py:
 ```python
-import socket
-
-s=socket.socket()
-s.connect(('localhost',8001))
-
-while True:
-    d=input("Enter message: ")
-    if d=="exit": break
-    s.sendall(d.encode())
-    print("Echo:",s.recv(1024).decode())
-
-s.close()
+import socket 
+s=socket.socket() 
+s.connect(('localhost',8000)) 
+while True: 
+    msg=input("Client > ") 
+    s.send(msg.encode()) 
+    print("Server > ",s.recv(1024).decode())
 ```
 
 ## Server.py:
 ```python
-import socket
-
-s=socket.socket()
-s.bind(('localhost',8001))
-s.listen(1)
-c,a=s.accept()
-
-while True:
-    d=c.recv(1024).decode()
-    if not d: break
-    print("Received:",d)
-    c.sendall(d.encode())
-
-c.close()
+import socket 
+s=socket.socket() 
+s.bind(('localhost',8000)) 
+s.listen(5) 
+c,addr=s.accept() 
+while True: 
+    ClientMessage=c.recv(1024).decode() 
+    c.send(ClientMessage.encode()) 
 ```
 
 
 ## OUPUT
-<img width="1741" height="1029" alt="image" src="https://github.com/user-attachments/assets/d1c83be5-783d-4014-8e60-2a24dae2b700" />
+<img width="1857" height="967" alt="image" src="https://github.com/user-attachments/assets/2ff6b228-376c-4ff4-b204-e523ef166d05" />
 
 ## RESULT
 Thus, the python program for creating Echo Client and Echo Server using TCP Sockets Links 
